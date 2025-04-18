@@ -1,0 +1,47 @@
+version: "3"
+
+services:
+  web:
+    image: php:8.2-apache    #php version
+    container_name: WEB
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - database
+    volumes:
+      - ./html:/var/www/html
+
+  database:
+    image: mysql:8.1.0
+    container_name: DATABASE
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Glutinous-Nylon4-Jawed
+      MYSQL_DATABASE: lamp_db
+      MYSQL_USER: benjamin
+      MYSQL_PASSWORD: Absentee-Thaw-Blinker7
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+
+  supervision:
+    image: grafana/grafana-enterprise
+    container_name: SUPERVISION
+    restart: unless-stopped
+    ports:
+     - "3000:3000"
+
+  bind9:
+    image: debian/bind:latest
+    container_name: DNS
+    restart: always
+    environment: 
+      - BIND9_USER=root
+      - TZ=Europe/Paris
+    volumes:
+      - ./config:/etc/bind
+      - ./cache:/var/cache/bind
+      - ./records:/var/lib/bind
+    ports:
+      - 53:53/udp
+      - 53:53/tcp
