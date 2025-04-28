@@ -2,15 +2,17 @@ version: "3"
 
 services:
   web:
-    image: php:8.2-apache    #php version
+    #image: php:8.2-apache    #php version
+    image: OC-P4-Site
     container_name: WEB
     restart: always
     ports:
       - "80:80"
-    depends_on:
-      - database
-    volumes:
-      - ./html:/var/www/html
+    build: .
+    #depends_on:
+    #  - database
+    #volumes:
+    #  - ./html:/var/www/html
 
   database:
     image: mysql:8.1.0
@@ -23,13 +25,6 @@ services:
       MYSQL_PASSWORD: Absentee-Thaw-Blinker7
     volumes:
       - ./mysql_data:/var/lib/mysql
-
-  supervision:
-    image: grafana/grafana-enterprise
-    container_name: SUPERVISION
-    restart: unless-stopped
-    ports:
-     - "3000:3000"
 
   bind9:
     image: debian/bind:latest
