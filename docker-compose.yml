@@ -3,7 +3,7 @@ version: "3"
 services:
   web:
     #image: php:8.2-apache    #php version
-    image: OC-P4-Site
+    image: oc-p4-site
     container_name: WEB
     restart: always
     ports:
