@@ -1,0 +1,17 @@
+; BIND data file pour beesafe.co
+$TTL    604800
+$ORIGIN beesafe.co. ; Base du nom de domaine
+
+; Caractéristiques de la zone
+@       IN      SOA     srv-dns.beesafe.co. admin.beesafe.co. (
+                              1         ; Serial
+                              3600      ; Refresh (1 heure)
+                              86400     ; Retry (24 heures)
+                              2592000   ; Expire (30 jours)
+                              604800 )  ; Negative Cache TTL (1 semaine)
+
+; Enregistrements
+@           IN      NS      srv-dns.beesafe.co.
+@           IN      A       192.168.1.10
+srv-dns     IN      A       192.168.1.10
+www         IN      A       192.168.1.10

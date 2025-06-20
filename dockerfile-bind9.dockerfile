@@ -1,1 +1,0 @@
-#Serveur DNSFROM debian/bind:latestRUN echo 'mise à jour du docker bind9 (dns)'EXPOSE 53:53/udp && 53:53/tcpRUN echo 'ouverture du port 53 en UDP et TCP'

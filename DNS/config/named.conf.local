@@ -1,0 +1,6 @@
+zone "beesafe.co" {
+    type master;
+    file "/etc/bind/db.beesafe.co";
+    allow-update { none; };
+    allow-transfer { none; };
+};

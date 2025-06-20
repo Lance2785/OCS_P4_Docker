@@ -1,23 +1,22 @@
-version: "3"
-
 services:
   web:
-    #image: php:8.2-apache    #php version
-    image: oc-p4-site
+    image: lance2785/beesafe-web # lien du repo dockerhub quand l'image est publiée
+    #build: . pas utile si image déjà dans le repo local
     container_name: WEB
-    restart: always
+    environment:
+      DB_SERVERNAME: DATABASE
+      DB_NAME: lamp_db
+      DB_USER: benjamin
+      DB_PASSWORD: Absentee-Thaw-Blinker7
+    networks:
+      - website-network
     ports:
       - "80:80"
-    build: .
-    #depends_on:
-    #  - database
-    #volumes:
-    #  - ./html:/var/www/html
+    restart: unless-stopped
 
   database:
-    image: mysql:8.1.0
+    image: lance2785/beesafe-db
     container_name: DATABASE
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: Glutinous-Nylon4-Jawed
       MYSQL_DATABASE: lamp_db
@@ -25,18 +24,26 @@ services:
       MYSQL_PASSWORD: Absentee-Thaw-Blinker7
     volumes:
       - ./mysql_data:/var/lib/mysql
+    networks:
+      - website-network
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
 
   bind9:
-    image: debian/bind:latest
+    image: lance2785/beesafe-dns
     container_name: DNS
-    restart: always
     environment: 
       - BIND9_USER=root
       - TZ=Europe/Paris
-    volumes:
-      - ./config:/etc/bind
-      - ./cache:/var/cache/bind
-      - ./records:/var/lib/bind
+    networks:
+      - website-network
     ports:
       - 53:53/udp
       - 53:53/tcp
+    restart: unless-stopped
+
+      
+networks:
+  website-network:
+    driver: bridge

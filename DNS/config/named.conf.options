@@ -1,0 +1,33 @@
+// Autoriser uniquement certains réseaux à solliciter ce DNS
+acl "lan" {
+        192.168.1.0/24;
+        localhost;
+        localnets;
+};
+
+options {
+        // Répertoire de travail de Bind
+        directory "/var/cache/bind";
+
+        // Redirecteurs DNS (résolveurs externes)
+        forwarders {
+                9.9.9.9;        # Quad DNS
+                8.8.8.8;        # Google DNS
+                8.8.4.4;        # Google DNS
+                1.1.1.1;        # Cloudflare DNS
+                1.0.0.1;        # Cloudflare DNS
+        };
+
+        // Mode récursif, pour résoudre les noms externes 
+        recursion yes;
+
+        // Active la validation DNSSEC (vérifier l'authenticité des réponses DNS signées)
+        dnssec-validation auto;
+
+        // Ecouter sur toutes les interfaces réseau en IPv4 et IPv6
+        listen-on { any; };
+        listen-on-v6 { any; };
+        
+        // Autoriser les requêtes pour les hôtes de l'ACL "lan"
+        allow-query { lan; };
+};
