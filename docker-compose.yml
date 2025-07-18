@@ -11,7 +11,7 @@ services:
     networks:
       - website-network
     ports:
-      - "80:80"
+      - 80:80
     restart: unless-stopped
 
   database:
@@ -20,14 +20,16 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: Glutinous-Nylon4-Jawed
       MYSQL_DATABASE: lamp_db
-      MYSQL_USER: benjamin
-      MYSQL_PASSWORD: Absentee-Thaw-Blinker7
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: xF5-Vfd/56
+      BEESAFE_MYSQL_USER: benjamin
+      BEESAFE_MYSQL_PASSWORD: Absentee-Thaw-Blinker7
     volumes:
       - ./mysql_data:/var/lib/mysql
     networks:
       - website-network
     ports:
-      - "3306:3306"
+      - 3306:3306
     restart: unless-stopped
 
   bind9:

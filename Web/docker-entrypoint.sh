@@ -61,3 +61,4 @@ echo "Initialisation Apache terminée !"
 #CMD
 echo "Démarrage du serveur web Apache..."
 exec "$@"
+# CMD ["apache2-foreground"]

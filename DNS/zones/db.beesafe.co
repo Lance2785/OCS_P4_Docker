@@ -1,17 +1,22 @@
 ; BIND data file pour beesafe.co
-$TTL    604800
-$ORIGIN beesafe.co. ; Base du nom de domaine
+$TTL    604800 ; durée de vie des informations fournies
+$ORIGIN beesafe.co. ; base du nom de domaine
 
 ; Caractéristiques de la zone
 @       IN      SOA     srv-dns.beesafe.co. admin.beesafe.co. (
-                              1         ; Serial
-                              3600      ; Refresh (1 heure)
-                              86400     ; Retry (24 heures)
-                              2592000   ; Expire (30 jours)
-                              604800 )  ; Negative Cache TTL (1 semaine)
+                              1         ; Serial - numéro de série à incrémenter chaque fois que le fichier est modifié pour notifier les serveurs secondaires d'une mise à jour)
+                              3600      ; Refresh (1 heure) - délai de rafraichissement pour la synchronisation des configurations entre plusieurs serveurs DNS
+                              86400     ; Retry (24 heures) - délai au bout duquel un serveur DNS secondaire devra retenter une synchronisation
+                              2592000   ; Expire (30 jours) - si toutes les tentatives de synchronisation échouent, un serveur DNS secondaire considérera qu'il ne peut plus répondre aux requêtes concernant cette zone
+                              604800 )  ; Negative Cache TTL (1 semaine) - durée de conservation dans le cache de l'information "NXDOMAIN" lorsqu'un incident se produit
 
 ; Enregistrements
+dns         IN      CNAME   srv-dns
 @           IN      NS      srv-dns.beesafe.co.
-@           IN      A       192.168.1.10
-srv-dns     IN      A       192.168.1.10
-www         IN      A       192.168.1.10
+@           IN      A       192.168.178.113
+srv-dns     IN      A       192.168.178.113
+www         IN      A       192.168.178.113
+
+;@           IN      A       192.168.1.10
+;srv-dns     IN      A       192.168.1.10
+;www         IN      A       192.168.1.10

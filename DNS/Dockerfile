@@ -1,6 +1,6 @@
 #Serveur DNS
 
-#'image basée sur le docker bind9
+#image basée sur le docker bind9
 FROM ubuntu/bind9:latest
 
 #création des dossiers de bind9
@@ -27,7 +27,7 @@ COPY ./zones/db.beesafe.co /etc/bind/
 #ouverture du port 53 
 EXPOSE 53:53
 
-# Start BIND9
+#démarrage BIND9
 # CMD ["/usr/sbin/named", "-g"]
 CMD ["/usr/sbin/named", "-g", "-c", "/etc/bind/named.conf", "-u", "bind"]
 

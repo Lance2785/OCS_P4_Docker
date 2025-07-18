@@ -12,7 +12,7 @@ FROM php:8.2-apache
 # RUN apt-get install mysqli && apt-get configure mysqli --with-mysqli=mysqlnd
 RUN docker-php-ext-install mysqli && docker-php-ext-configure mysqli --with-mysqli=mysqlnd
 
-#'initialisation des variables'
+#initialisation des variables
 ENV SITE_DOMAIN=www.beesafe.co
 ENV DB_SERVERNAME=DATABASE
 ENV DB_NAME=""
@@ -20,23 +20,22 @@ ENV DB_USER=""
 ENV DB_PASSWORD=""
 ENV DB_PORT=3306
 
-#'initialisation du dossier de travail'
+#initialisation du dossier de travail
 WORKDIR /var/www/html/
 
-#'clonage du repo github'
-#RUN git clone https://github.com/Lance2785/OCS_P4_Applications
+#clonage du repo github
 # ADD https://github.com/OpenClassrooms-Student-Center/ASR-P4-BeeSafe.git /var/www/html/
 ADD https://github.com/OpenClassrooms-Student-Center/ASR-P4-BeeSafe.git .
 
-#'copie et autorisations du script de démarrage'
+#copie et autorisations du script de démarrage
 COPY ./docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-#'lancement du script de démarrage'
+#lancement du script de démarrage
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
-#'démarrage du serveur apache'
+#démarrage du serveur apache
 CMD ["apache2-foreground"]
 
-#'ouverture du port 80'
+#ouverture du port 80
 EXPOSE 80
