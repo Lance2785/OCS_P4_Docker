@@ -41,7 +41,7 @@ fi
 # if [ ! -z "$SITE_DOMAIN" ]; then
     echo "Paramétrage de l'hôte virtuel pour $SITE_DOMAIN"
     cat > /etc/apache2/sites-available/000-default.conf << EOF
-<VirtualHost *:80>
+<VirtualHost 192.168.178.113:80>
     ServerName $SITE_DOMAIN
     DocumentRoot /var/www/html
     

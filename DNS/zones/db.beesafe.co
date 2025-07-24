@@ -16,7 +16,3 @@ dns         IN      CNAME   srv-dns
 @           IN      A       192.168.178.113
 srv-dns     IN      A       192.168.178.113
 www         IN      A       192.168.178.113
-
-;@           IN      A       192.168.1.10
-;srv-dns     IN      A       192.168.1.10
-;www         IN      A       192.168.1.10
